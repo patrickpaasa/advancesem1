@@ -22,9 +22,78 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.amber,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const LoginPage(),
+      debugShowCheckedModeBanner: false,
+    );
+  }
+}
+
+class LoginPage extends StatelessWidget {
+  const LoginPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        children: [
+          backgroundImage(context),
+          Opacity(
+            opacity: 0.65,
+            child: Container(
+              decoration: gradientColor(),
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+            ),
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            child: loginButtons(),
+          )
+        ],
+      ),
+    );
+  }
+
+  BoxDecoration gradientColor() {
+    return const BoxDecoration(
+        gradient: LinearGradient(
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            colors: [
+          Color(0xFFf434f4),
+          Color(0xFF2e1a43),
+          Color(0xFF1f136b),
+        ]));
+  }
+
+  Container backgroundImage(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height,
+      child: const Image(
+        image: AssetImage("assets/pheagle.jpg"),
+        fit: BoxFit.cover,
+      ),
+    );
+  }
+
+  Column loginButtons() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        ElevatedButton(onPressed: () {}, child: const Text("Login to Google")),
+        const SizedBox(
+          height: 10,
+        ),
+        ElevatedButton(
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+            ),
+            onPressed: () {},
+            child: const Text("Login to Facebook")),
+      ],
     );
   }
 }
